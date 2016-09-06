@@ -1,7 +1,10 @@
+# common ignore
 /target
-.idea
-
 *.class
+
+# IDEA ignore
+.idea
+*.iml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
