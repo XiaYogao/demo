@@ -4,8 +4,8 @@
          xmlns="http://java.sun.com/xml/ns/javaee" version="3.0">
 
     <context-param>
-        <param-name>configLocation</param-name>
-        <param-value>classpath*:/applicationContext.xml</param-value>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:/applicationContext*.xml</param-value>
     </context-param>
 
     <listener>
@@ -16,7 +16,7 @@
         <servlet-name>demo</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
-            <param-name>configLocation</param-name>
+            <param-name>contextConfigLocation</param-name>
             <param-value>classpath*:/applicationContext-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
