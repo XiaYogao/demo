@@ -17,8 +17,6 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath*:/jdbc.properties" />
     </bean>
-    <!--<context:property-placeholder location="classpath*:/jdbc.properties"/>-->
-
 
     <!-- 配置dataSource -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
