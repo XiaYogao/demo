@@ -27,8 +27,10 @@ import org.apache.commons.codec.binary.Base64;
 public final class RSAEncryptUtil {
 	public static final String KEY_ALGORITHM = "RSA";  
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";  
-  
-    private static final String PUBLIC_KEY = "RSAPublicKey";  
+
+    /** 公钥 */
+    private static final String PUBLIC_KEY = "RSAPublicKey";
+    /** 私钥 */
     private static final String PRIVATE_KEY = "RSAPrivateKey";  
   
     public static byte[] decryptBASE64(String key) throws Exception {  
@@ -44,14 +46,11 @@ public final class RSAEncryptUtil {
     /** 
      * 用私钥对信息生成数字签名 
      *  
-     * @param data 
-     *            加密数据 
-     * @param privateKey 
-     *            私钥 
-     *  
-     * @return 
-     * @throws Exception 
-     */  
+     * @param data 加密数据
+     * @param privateKey 私钥
+     * @throws Exception
+     * @return 加密后数据
+     */
     public static String sign(byte[] data, String privateKey) throws Exception {  
         // 解密由base64编码的私钥  
         byte[] keyBytes = decryptBASE64(privateKey);  
@@ -76,21 +75,14 @@ public final class RSAEncryptUtil {
     /** 
      * 校验数字签名 
      *  
-     * @param data 
-     *            加密数据 
-     * @param publicKey 
-     *            公钥 
-     * @param sign 
-     *            数字签名 
-     *  
-     * @return 校验成功返回true 失败返回false 
-     * @throws Exception 
-     *  
-     */  
-    public static boolean verify(byte[] data, String publicKey, String sign)  
-            throws Exception {  
-  
-        // 解密由base64编码的公钥  
+     * @param data 加密数据
+     * @param publicKey 公钥
+     * @param sign 数字签名
+     * @throws Exception
+     * @return 校验成功返回true 失败返回false
+     */
+    public static boolean verify(byte[] data, String publicKey, String sign) throws Exception {
+        // 解密由base64编码的公钥
         byte[] keyBytes = decryptBASE64(publicKey);  
   
         // 构造X509EncodedKeySpec对象  
@@ -111,16 +103,14 @@ public final class RSAEncryptUtil {
     }  
   
     /** 
-     * 解密<br> 
-     * 用私钥解密 
-     *  
-     * @param data 
-     * @param key 
-     * @return 
-     * @throws Exception 
-     */  
-    public static byte[] decryptByPrivateKey(byte[] data, String key)  
-            throws Exception {  
+     * 解密<br>  用私钥解密
+     *
+     * @param data 解密数据
+     * @param key 私钥
+     * @throws Exception
+     * @return 解密后的数据
+     */
+    public static byte[] decryptByPrivateKey(byte[] data, String key) throws Exception {
         // 对密钥解密  
         byte[] keyBytes = decryptBASE64(key);  
   
@@ -137,16 +127,14 @@ public final class RSAEncryptUtil {
     }  
   
     /** 
-     * 解密<br> 
-     * 用公钥解密 
+     * 解密<br>  用公钥解密
      *  
-     * @param data 
-     * @param key 
-     * @return 
-     * @throws Exception 
-     */  
-    public static byte[] decryptByPublicKey(byte[] data, String key)  
-            throws Exception {  
+     * @param data 解密数据
+     * @param key 公钥
+     * @throws Exception
+     * @return 解密后的数据
+     */
+    public static byte[] decryptByPublicKey(byte[] data, String key) throws Exception {
         // 对密钥解密  
         byte[] keyBytes = decryptBASE64(key);  
   
@@ -163,16 +151,14 @@ public final class RSAEncryptUtil {
     }  
   
     /** 
-     * 加密<br> 
-     * 用公钥加密 
-     *  
-     * @param data 
-     * @param key 
-     * @return 
-     * @throws Exception 
-     */  
-    public static byte[] encryptByPublicKey(byte[] data, String key)  
-            throws Exception {  
+     * 加密<br>  用公钥加密
+     *
+     * @param data 需要加密的数据
+     * @param key  公钥
+     * @throws Exception
+     * @return 加密后的数据
+     */
+    public static byte[] encryptByPublicKey(byte[] data, String key) throws Exception {
         // 对公钥解密  
         byte[] keyBytes = decryptBASE64(key);  
   
@@ -189,16 +175,14 @@ public final class RSAEncryptUtil {
     }  
   
     /** 
-     * 加密<br> 
-     * 用私钥加密 
+     * 加密<br>  用私钥加密
      *  
-     * @param data 
-     * @param key 
-     * @return 
-     * @throws Exception 
-     */  
-    public static byte[] encryptByPrivateKey(byte[] data, String key)  
-            throws Exception {  
+     * @param data 加密前的数据
+     * @param key 私钥
+     * @throws Exception
+     * @return 加密后的数据
+     */
+    public static byte[] encryptByPrivateKey(byte[] data, String key) throws Exception {
         // 对密钥解密  
         byte[] keyBytes = decryptBASE64(key);  
   
@@ -217,40 +201,35 @@ public final class RSAEncryptUtil {
     /** 
      * 取得私钥 
      *  
-     * @param keyMap 
-     * @return 
-     * @throws Exception 
-     */  
-    public static String getPrivateKey(Map<String, Object> keyMap)  
-            throws Exception {  
+     * @param keyMap 密钥
+     * @throws Exception
+     * @return 私钥
+     */
+    public static String getPrivateKey(Map<String, Object> keyMap) throws Exception {
         Key key = (Key) keyMap.get(PRIVATE_KEY);  
-  
-        return encryptBASE64(key.getEncoded());  
+        return encryptBASE64(key.getEncoded());
     }  
   
     /** 
      * 取得公钥 
      *  
-     * @param keyMap 
-     * @return 
-     * @throws Exception 
-     */  
-    public static String getPublicKey(Map<String, Object> keyMap)  
-            throws Exception {  
+     * @param keyMap 密钥
+     * @throws Exception
+     * @return 公钥
+     */
+    public static String getPublicKey(Map<String, Object> keyMap) throws Exception {
         Key key = (Key) keyMap.get(PUBLIC_KEY);  
-  
-        return encryptBASE64(key.getEncoded());  
+        return encryptBASE64(key.getEncoded());
     }  
   
     /** 
      * 初始化密钥 
      *  
-     * @return 
-     * @throws Exception 
-     */  
+     * @throws Exception
+     * @return 私钥和密钥MAP
+     */
     public static Map<String, Object> initKey() throws Exception {  
-        KeyPairGenerator keyPairGen = KeyPairGenerator  
-                .getInstance(KEY_ALGORITHM);  
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         keyPairGen.initialize(1024);  
   
         KeyPair keyPair = keyPairGen.generateKeyPair();  

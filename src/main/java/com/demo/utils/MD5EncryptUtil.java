@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
  * @date 2016/9/8 下午 16:51
  * @since V1.0
  */
-public class EncryptUtil {
+public final class MD5EncryptUtil {
 
     // 用来将字节转换成16进制表示的字符
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -45,7 +45,7 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(EncryptUtil.md5("1"));// b111d3dbbaff3b39e2e3cd5cf17a1abe
+        System.out.println(MD5EncryptUtil.md5("1"));// b111d3dbbaff3b39e2e3cd5cf17a1abe
         // e10adc3949ba59abbe56e057f20f883e
     }
 
