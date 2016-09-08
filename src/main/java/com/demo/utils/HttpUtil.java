@@ -36,13 +36,13 @@ import java.util.List;
  * @date 2016/9/8 下午 15:42
  * @since V1.0
  */
-public class HttpUtil {
+public final class HttpUtil {
 
     // 私密连接工厂
     private static SSLConnectionSocketFactory socketFactory;
 
     /**
-     * 重写验证方法：取消检测SSL
+     * 重写验证方法：取消检测SSL(不用手工导入证书，谨慎使用)
      */
     private static TrustManager manager = new X509TrustManager() {
         @Override
