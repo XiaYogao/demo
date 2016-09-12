@@ -17,7 +17,7 @@ public class User extends BaseModel {
     private String username;
     private String password;
     private Integer age;
-    private Gender gender;
+    private Integer gender;
     private Date birthday;
 
 
@@ -53,11 +53,11 @@ public class User extends BaseModel {
         this.age = age;
     }
 
-    public Gender getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -81,29 +81,4 @@ public class User extends BaseModel {
                 '}';
     }
 
-    /**
-     * 描述：性别
-     *
-     * @author xiayonggao
-     */
-    enum Gender{
-        MALE(0, "女"),
-        FAMEL(1, "男");
-
-        private Integer val;
-        private String title;
-
-        Gender(Integer val, String title){
-            this.val = val;
-            this.title = title;
-        }
-
-        public Integer getVal(){
-            return this.val;
-        }
-
-        public String getTitle(){
-            return this.title;
-        }
-    }
 }

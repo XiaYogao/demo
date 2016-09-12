@@ -39,7 +39,7 @@ public class BaseModel implements Serializable {
     }
 
     public Integer getStartIndex() {
-        return startIndex < 0 ? 0 : startIndex;
+        return (startIndex == null || startIndex < 0) ? 0 : startIndex;
     }
 
     public void setStartIndex(Integer startIndex) {
@@ -47,7 +47,7 @@ public class BaseModel implements Serializable {
     }
 
     public Integer getPageSize() {
-        return pageSize < 0 ? 15 : pageSize;
+        return (pageSize == null || pageSize < 0) ? 15 : pageSize;
     }
 
     public void setPageSize(Integer pageSize) {

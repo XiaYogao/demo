@@ -75,9 +75,8 @@ public interface IBaseDao<T, ID extends Serializable> {
     /**
      * 带分页、排序的查询
      * @param condition 条件
-     * @param qOrderPageCondition 分页、排序参数条件 // TODO: 16-8-29 确定好此条件参数
      * @return 记录数据列表
      */
-    List<T> list(T condition, Map<String, Object> qOrderPageCondition);
+    List<T> list(T condition);
 
 }

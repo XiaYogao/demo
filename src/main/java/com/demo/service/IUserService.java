@@ -19,4 +19,6 @@ public interface IUserService {
 
     List<User> list(User user);
 
+    User get(Long id);
+
 }
