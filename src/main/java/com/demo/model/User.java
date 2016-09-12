@@ -1,5 +1,7 @@
 package com.demo.model;
 
+import com.demo.base.BaseModel;
+
 import java.util.Date;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Date;
  * @date 2016/9/6 14:41
  * @since V1.0
  */
-public class User {
+public class User extends BaseModel {
 
     private Long id;
     private String username;

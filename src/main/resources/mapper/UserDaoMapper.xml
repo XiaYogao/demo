@@ -11,6 +11,42 @@
         <result column="birthday" property="birthday"/>
     </resultMap>
 
+    <!-- 查询列 -->
+    <sql id="Base_Columns">
+        `id`,`username`,`password`,`age`,`birthday`
+    </sql>
+
+    <!-- 更新设置 -->
+    <sql id="Update_Set">
+        <set>
+            /* edit_time = now(),*/
+            <if test="username != null and username != ''">`username` = #{username},</if>
+            <if test="password != null and password != ''">`password` = #{password},</if>
+            <if test="age != null and age != ''">`age` = #{age},</if>
+            <if test="gender != null and gender != ''">`gender` = #{gender},</if>
+            <if test="birthday != null and birthday != ''">`birthday` = #{birthday}</if>
+        </set>
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Query_Condition">
+        <where>
+            1 = 1
+            <if test="username != null and username != ''"> AND `username` = #{username}</if>
+            <if test="password != null and password != ''"> AND `password` = #{password}</if>
+            <if test="age != null and age != ''">AND `age` = #{age}</if>
+            <if test="gender != null and gender != ''">AND `gender` = #{gender}</if>
+            <if test="birthday != null and birthday != ''">AND `birthday` = #{birthday}</if>
+        </where>
+    </sql>
+    
+    <!-- 分页、排序 -->
+    <sql id="Page_Limit_Query">
+        <if test="orderField != null and orderField != '' and orderFieldType != null and orderFieldType != ''"><![CDATA[ORDER BY `${orderField}` ${orderFieldType}]]></if>
+        <if test="startIndex != null and startIndex &gt;= 0 and pageSize != null and pageSize &gt; 0"><![CDATA[LIMIT #{startIndex},#{pageSize}]]></if>
+    </sql>
+
+    <!-- 新增 -->
     <insert id="insert" parameterType="com.demo.model.User" useGeneratedKeys="true">
         <![CDATA[
         INSERT INTO `t_user`(
@@ -28,24 +64,85 @@
         ) ]]>
     </insert>
 
+    <!-- 批量新增 -->
+    <insert id="batchInsert">
+        INSERT INTO `t_user`(
+          `username`,
+          `password`,
+          `age`,
+          `gender`,
+          `birthday`
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+         (
+          #{item.username},
+          #{item.password},
+          #{item.age},
+          #{item.gender},
+          #{item.birthday}
+        )
+        </foreach>
+    </insert>
+
+    <!-- 按主键删除 -->
     <delete id="delete" parameterType="java.lang.Long">
         <![CDATA[DELETE FROM `t_user` WHERE `id` = #{id}]]>
     </delete>
 
+    <!-- 按主键批量删除 -->
+    <delete id="batchDelete" parameterType="java.lang.reflect.Array">
+        DELETE FROM  `t_user`
+        WHERE `id` IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+    <!-- 按主键更新 -->
     <update id="update" parameterType="com.demo.model.User">
-        <![CDATA[
-          UPDATE `t_user`
-          SET `username` = #{username},
-              `password` = #{password},
-              `age` = #{age},
-              `gender` = #{gender},
-              `birthday` = #{birthday}
-          WHERE `id` = #{id}
-        ]]>
+        UPDATE `t_user`
+        <include refid="Update_Set"/>
+        WHERE `id` = #{id}
     </update>
 
+    <!-- 按主键批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE `t_user`
+            <include refid="Update_Set"/>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 按主键获取 -->
     <select id="get" parameterType="java.lang.Long" resultMap="BaseResult">
-        SELECT * FROM `t_user` WHERE `id` = #{id}
+        SELECT
+        <include refid="Base_Columns"/>
+        FROM `t_user` WHERE `id` = #{id}
+    </select>
+
+    <!-- 统计记录数 -->
+    <select id="count" parameterType="com.demo.model.User" resultType="Long">
+        SELECT COUNT(`id`) AS total FROM `t_user`
+        <include refid="Query_Condition"/>
+    </select>
+
+    <!-- 查找（不带分页、排序） -->
+    <select id="find" parameterType="com.demo.model.User" resultMap="BaseResult">
+        SELECT
+        <include refid="Base_Columns"/>
+        FROM `t_user`
+        <include refid="Query_Condition"/>
+    </select>
+
+    <!-- 查找（带分页、排序） -->
+    <select id="list" parameterType="com.demo.model.User" resultMap="BaseResult">
+        SELECT
+        <include refid="Base_Columns"/>
+        FROM `t_user`
+        <include refid="Query_Condition"/>
+        <include refid="Page_Limit_Query"/>
     </select>
 
 </mapper>
