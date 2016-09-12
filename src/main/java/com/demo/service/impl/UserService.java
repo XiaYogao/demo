@@ -1,8 +1,12 @@
 package com.demo.service.impl;
 
+import com.demo.base.BaseService;
+import com.demo.base.IBaseDao;
 import com.demo.dao.IUserDao;
 import com.demo.model.User;
 import com.demo.service.IUserService;
+import com.demo.utils.MD5EncryptUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,31 +18,15 @@ import java.util.List;
  * @since V1.0
  */
 @Service
-public class UserService implements IUserService {
+public class UserService extends BaseService<User, Long> implements IUserService {
 
     @Autowired
     private IUserDao userDao;
 
     @Override
-    public int saveOrUpdate(User user) {
-        if(null == user.getId()){
-            return userDao.insert(user);
-        }
-        return userDao.update(user);
+    protected IBaseDao<User, Long> getDao() {
+        return userDao;
     }
 
-    @Override
-    public int delete(Long id) {
-        return userDao.delete(id);
-    }
 
-    @Override
-    public List<User> list(User user) {
-        return userDao.list(user);
-    }
-
-    @Override
-    public User get(Long id) {
-        return userDao.get(id);
-    }
 }

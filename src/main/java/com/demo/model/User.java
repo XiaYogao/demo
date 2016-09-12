@@ -13,21 +13,11 @@ import java.util.Date;
  */
 public class User extends BaseModel {
 
-    private Long id;
     private String username;
     private String password;
     private Integer age;
     private Integer gender;
     private Date birthday;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

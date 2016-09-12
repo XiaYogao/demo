@@ -13,12 +13,4 @@ import java.util.List;
  */
 public interface IUserService {
 
-    int saveOrUpdate(User user);
-
-    int delete(Long id);
-
-    List<User> list(User user);
-
-    User get(Long id);
-
 }

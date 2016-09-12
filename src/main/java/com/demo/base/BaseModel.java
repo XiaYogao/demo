@@ -13,6 +13,8 @@ public class BaseModel implements Serializable {
 
     private static final long serialVersionUID = 7432549594542115268L;
 
+    /** 主键ID */
+    protected Long id;
     /** 排序字段 */
     private transient String orderField;
     /** 排序类型：ASC(升序)、DESC(降序) */
@@ -21,6 +23,14 @@ public class BaseModel implements Serializable {
     private transient Integer startIndex;
     /** 每页记录数 */
     private transient Integer pageSize;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getOrderField() {
         return orderField;

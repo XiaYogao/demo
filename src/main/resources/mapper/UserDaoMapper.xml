@@ -128,14 +128,6 @@
         <include refid="Query_Condition"/>
     </select>
 
-    <!-- 查找（不带分页、排序） -->
-    <select id="find" parameterType="com.demo.model.User" resultMap="BaseResult">
-        SELECT
-        <include refid="Base_Columns"/>
-        FROM `t_user`
-        <include refid="Query_Condition"/>
-    </select>
-
     <!-- 查找（带分页、排序） -->
     <select id="list" parameterType="com.demo.model.User" resultMap="BaseResult">
         SELECT

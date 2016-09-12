@@ -45,7 +45,7 @@ public interface IBaseDao<T, ID extends Serializable> {
     int update(T t);
 
     /**
-     * 批量按住见更新记录
+     * 批量按主键更新记录
      * @param ts 更新的数据
      * @return 影响行数
      */
@@ -57,13 +57,6 @@ public interface IBaseDao<T, ID extends Serializable> {
      * @return 对应记录数据
      */
     T get(ID id);
-
-    /**
-     * 查找记录
-     * @param condition 查询条件
-     * @return 记录数据列表
-     */
-    List<T> find(T condition);
 
     /**
      * 查询记录数

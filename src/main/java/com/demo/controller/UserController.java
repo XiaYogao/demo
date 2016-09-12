@@ -3,12 +3,12 @@ package com.demo.controller;
 import com.demo.base.BaseController;
 import com.demo.model.User;
 import com.demo.service.IUserService;
+import com.demo.utils.MD5EncryptUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -41,6 +41,23 @@ public class UserController extends BaseController {
     public String get(@PathVariable(value = "id")Long id) {
         User user = userService.get(id);
         return success(user);
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String login(String username, String password, HttpServletRequest request){
+        User user = new User();
+        user.setUsername(username);
+        List<User> users = userService.list(user);
+        if(CollectionUtils.isEmpty(users)){
+            return error("user not exist");
+        }
+
+        User sessionUser = users.get(0);
+        if(!sessionUser.getPassword().equals(MD5EncryptUtil.md5(password))){
+            return error("password invalid");
+        }
+        request.getSession().setAttribute("SESSION_USER", sessionUser);
+        return success("login success");
     }
 
 
