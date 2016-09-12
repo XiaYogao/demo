@@ -1,6 +1,10 @@
 package com.demo.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,6 +13,8 @@ import java.util.List;
  * @since V1.0
  */
 public abstract class BaseService<T, ID extends Serializable> implements IBaseService<T, ID> {
+
+    private final static Logger LOG = LoggerFactory.getLogger(BaseService.class);
 
     protected abstract IBaseDao<T, ID> getDao();
 
@@ -20,6 +26,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
      */
     @Override
     public int add(T t) {
+        LOG.debug(String.format("add record: data->%s", t));
         return getDao().insert(t);
     }
 
@@ -31,6 +38,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
      */
     @Override
     public int modify(T t) {
+        LOG.debug(String.format("modify record: data->%s", t));
         return getDao().update(t);
     }
 
@@ -50,10 +58,12 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
                 Class<?> clz = t.getClass();
                 id = (Long) clz.getMethod("getId").invoke(t);
             } catch (Exception e) {
+                LOG.error("entity has no primary key id", e);
                 throw new RuntimeException("获取对象主键值失败", e);
             }
         }
         if (id != null && id > 0) {
+            LOG.debug(String.format("modify record: data->%s", t));
             return modify(t);
         }
         return add(t);
@@ -68,6 +78,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
     @Override
     public int batchSave(List<T> ts) {
         if (ts != null || ts.size() > 0) {
+            LOG.debug(String.format("batch add record: size->%d", ts.size()));
             return getDao().batchInsert(ts);
         }
         return 0;
@@ -82,6 +93,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
     @Override
     public int batchModify(List<T> ts) {
         if (ts != null || ts.size() > 0) {
+            LOG.debug(String.format("batch modify record: size->%d", ts.size()));
             return getDao().batchUpdate(ts);
         }
         return 0;
@@ -95,6 +107,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
      */
     @Override
     public int remove(ID id) {
+        LOG.debug(String.format("remove record: id->%d", id));
         return getDao().delete(id);
     }
 
@@ -106,6 +119,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
      */
     @Override
     public int batchRemove(ID... ids) {
+        LOG.debug(String.format("remove record: ids->%s", Arrays.toString(ids)));
         return getDao().batchDelete(ids);
     }
 
