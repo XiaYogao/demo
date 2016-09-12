@@ -9,7 +9,7 @@ public enum ResponseState {
     SUCCESS("200", "SUCCESS"),
     ERROR("500", "ERROR")
 
-    /* FIXME Other response status defined here */
+    /* Other response status defined here */
 
 
 

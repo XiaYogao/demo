@@ -23,7 +23,7 @@ public final class MD5EncryptUtil {
      * @return 加密后的字符串
      */
     public static String md5(String str) {
-        str += "jYtie7u"; // FIXME 额外加密串，防止在线解密
+        str += "jYtie7u"; // 额外加密串，防止在线解密
         try {
             byte[] source = str.getBytes("utf-8");
             MessageDigest md = MessageDigest.getInstance("MD5");
