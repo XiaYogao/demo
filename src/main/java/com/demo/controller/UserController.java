@@ -27,13 +27,13 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String addUser(User user) {
-        userService.saveOrUpdate(user);
+        userService.saveOrModify(user);
         return success();
     }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     public String list(User user) {
-        List<User> users = userService.list(user);
+        List<User> users = userService.find(user);
         return success(users);
     }
 
@@ -47,7 +47,7 @@ public class UserController extends BaseController {
     public String login(String username, String password, HttpServletRequest request){
         User user = new User();
         user.setUsername(username);
-        List<User> users = userService.list(user);
+        List<User> users = userService.find(user);
         if(CollectionUtils.isEmpty(users)){
             return error("user not exist");
         }
