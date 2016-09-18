@@ -152,7 +152,7 @@ public abstract class BaseService<T, ID extends Serializable> implements IBaseSe
      * @return 记录数据列表
      */
     @Override
-    public List<T> find(T condition) {
+    public List<T> list(T condition) {
         return getDao().list(condition);
     }
 

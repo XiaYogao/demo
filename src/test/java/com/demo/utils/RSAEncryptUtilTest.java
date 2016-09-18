@@ -24,7 +24,7 @@ public class RSAEncryptUtilTest {
     @Test  
     public void test() throws Exception {  
         System.err.println("公钥加密——私钥解密");  
-        String inputStr = "abc";  
+        String inputStr = "http://127.0.0.1:8080/demo/user/login";
         byte[] data = inputStr.getBytes();  
   
         byte[] encodedData = RSAEncryptUtil.encryptByPublicKey(data, publicKey);  
@@ -41,7 +41,7 @@ public class RSAEncryptUtilTest {
     @Test  
     public void testSign() throws Exception {  
         System.err.println("私钥加密——公钥解密");  
-        String inputStr = "sign";  
+        String inputStr = "http://127.0.0.1:8080/demo/user/login";
         byte[] data = inputStr.getBytes();  
   
         byte[] encodedData = RSAEncryptUtil.encryptByPrivateKey(data, privateKey);  

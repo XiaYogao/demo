@@ -88,6 +88,6 @@ public interface IBaseService<T, ID extends Serializable> {
      * @param condition 条件
      * @return 记录数据列表
      */
-    List<T> find(T condition);
+    List<T> list(T condition);
 
 }

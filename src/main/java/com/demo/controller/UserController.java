@@ -38,7 +38,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     public String list(User user) {
-        List<User> users = userService.find(user);
+        List<User> users = userService.list(user);
         return success(users);
     }
 
@@ -52,7 +52,7 @@ public class UserController extends BaseController {
     public String login(String username, String password, HttpServletRequest request) {
         User user = new User();
         user.setUsername(username);
-        List<User> users = userService.find(user);
+        List<User> users = userService.list(user);
         if (CollectionUtils.isEmpty(users)) {
             return error("user not exist");
         }
