@@ -6,7 +6,9 @@
     <!-- Spring和mybatis的配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml</param-value>
+        <param-value>classpath:applicationContext.xml
+            classpath:applicationContext-jobs.xml
+        </param-value>
     </context-param>
     <!-- 编码过滤器 -->
     <filter>

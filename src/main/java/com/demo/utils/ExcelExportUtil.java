@@ -138,10 +138,6 @@ public final class ExcelExportUtil {
         return String.valueOf(cs);
     }
 
-    public static void main(String[] args) {
-        System.out.println(captureName("ajsdhfk"));
-    }
-
     /**
      * 写到输出流
      */
